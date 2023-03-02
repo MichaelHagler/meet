@@ -2,7 +2,9 @@
 
 Meet App
 
-This app uses a TDD (test-driven development) technique. The app uses the Google Calendar API and users will be able to see upcoming events in their city.h
+This app uses a TDD (test-driven development) technique. The app uses the Google Calendar API and users will be able to see upcoming events in their city.
+
+This app is serverless using AWS to show events in a city. Faas is used to deploy quickly and offers great scalability.
 
 Exercise 4.1 stories and scenarios
 
