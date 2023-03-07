@@ -1,5 +1,5 @@
 const { google } = require("googleapis");
-const OAuth = google.auth.OAuth2;
+const OAuth2 = google.auth.OAuth2;
 const calendar = google.calendar("v3");
 const SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 
@@ -7,10 +7,10 @@ const SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 const credentials = {
   client_id: process.env.CLIENT_ID,
   project_id: process.env.PROJECT_ID,
-  client_secret: process.env.CLEINT_SECRET,
+  client_secret: process.env.CLIENT_SECRET,
   calendar_id: process.env.CALENDAR_ID,
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
-  toekn_uri: "https://oauth2.googleapis.com/token",
+  token_uri: "https://oauth2.googleapis.com/token",
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
   redirect_uris: ["https://michaelhagler.github.io/meet/"],
   javascript_origins: ["https://michaelhagler.github.io", "http://localhost:3000"],
