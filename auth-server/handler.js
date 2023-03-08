@@ -125,10 +125,3 @@ module.exports.getCalendarEvents = async (event) => {
     };
   });
 }
-
-
-
-//endpoints
-// https://mdsnnpr995.execute-api.us-west-2.amazonaws.com/dev/api/get-auth-url
-// https://mdsnnpr995.execute-api.us-west-2.amazonaws.com/dev/api/token/{code}
-// https://mdsnnpr995.execute-api.us-west-2.amazonaws.com/dev/api/get-events/{access_token}
