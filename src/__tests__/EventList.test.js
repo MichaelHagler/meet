@@ -3,6 +3,7 @@ import { shallow } from "enzyme";
 import EventList from "../EventList";
 import Event from "../Event";
 
+//Creat an empty list test for "EventList.js"
 describe("<EventList /> component", () => {
   test("render correct number of events", () => {
     const EventListWrapper = shallow(
