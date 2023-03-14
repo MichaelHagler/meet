@@ -9,8 +9,14 @@ class Event extends Component {
   };
 
   render() {
+    const { event } = this.props;
+
     return (
       <div>
+        <h3 className="summary">{ event.summary }</h3>
+        <p className="location">{ event.location }</p>
+        <p className="description">{ event.description }</p>
+
         <button className="show-details" onClick={() => this.toggleDetails()}>
           Show Details
         </button>
