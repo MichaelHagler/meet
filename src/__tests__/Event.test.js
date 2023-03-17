@@ -17,8 +17,9 @@ describe("<Event /> component", () => {
   //renders default info
   test("render event summary", () => {
     const summary = EventWrapper.find("h3.summary");
-    expect(summary).toHaveLength(1);
-    expect(summary.text()).toBe(event.summary);
+    const summaryString = event.summary;
+    expect(summary).toBeDefined();
+    expect(summary.text()).toBe(summaryString);
   });
 
   test("render event location", () => {

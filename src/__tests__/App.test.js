@@ -34,6 +34,7 @@ describe("<App /> component", () => {
 //integration tests *full render
 describe("<App /> integration", () => {
 
+  //EventList gets events as a prop from App so it is defined in its state
   test("App passes 'events' state as a prop to EventList", () => {
     const AppWrapper = mount(<App />);
     const AppEventsState = AppWrapper.state("events");
@@ -42,6 +43,7 @@ describe("<App /> integration", () => {
     AppWrapper.unmount();
   });
 
+  //same as EventList but for locations
   test("App passes 'locations' state as a prop to CitySearch", () => {
     const AppWrapper = mount(<App />);
     const AppLocationsState = AppWrapper.state("locations");
@@ -50,6 +52,7 @@ describe("<App /> integration", () => {
     AppWrapper.unmount();
   });
 
+  //when user selects a city or see all cities the events are correctly shown
   test("get list of events matching the city selected by the user", async () => {
     const AppWrapper = mount(<App />);
     const CitySearchWrapper = AppWrapper.find(CitySearch);
@@ -65,6 +68,7 @@ describe("<App /> integration", () => {
     AppWrapper.unmount();
   });
 
+  //gets list of all events when user clicks see all cities
   test("get list of all events when user selects 'See all cities'", async () => {
     const AppWrapper = mount(<App />);
     const suggestionItems = AppWrapper.find(CitySearch).find(".suggestions li");

@@ -14,15 +14,14 @@ class App extends Component{
 
   updateEvents = (location) => {
     getEvents().then((events) => {
-      const locationEvents = (location === "all") ?
+      const locationEvents = (location === 'all') ?
         events :
-        events.filter((event) => events.location === location);
+        events.filter((event) => event.location === location);
       this.setState({
         events: locationEvents
       });
     });
   }
-
   componentDidMount() {
     this.mounted = true;
     getEvents().then((events) => {
@@ -33,7 +32,7 @@ class App extends Component{
   }
 
   componentWillUnmount(){
-    this.mounted = true;
+    this.mounted = false;
     getEvents().then((events) => {
     this.setState({ events, locations: extractLocations(events) });
    });
