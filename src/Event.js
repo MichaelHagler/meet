@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class Event extends Component {
-  state = { collapsed: true, event: [], location: [], description: [], summary:[] };
+  state = { collapsed: true };
   toggleDetails = () => {
     this.setState((prevState) => ({
       collapsed: !prevState.collapsed,
@@ -9,15 +9,27 @@ class Event extends Component {
   };
 
   render() {
+    const { event } = this.props;
+    const { collapsed } = this.state;
 
     return (
       <div>
-        <h3 className="summary">{ this.state.summary }</h3>
-        <p className="location">{ this.state.location }</p>
-        <p className="description">{ this.state.description }</p>
+        <h1 className="summary">{ event.summary }</h1>
+        <p className="location">{ event.location }</p>
+
+        {!collapsed && (
+          <div className="event-details">
+            <h2>
+              About Event:
+            </h2>
+            <p className="description">
+              {event.description}
+            </p>
+          </div>
+        )}
 
         <button className="show-details" onClick={() => this.toggleDetails()}>
-          Show Details
+          {collapsed ? "Show" : "Hide"} Details
         </button>
       </div>
     );

@@ -14,14 +14,14 @@ describe("<Event /> component", () => {
     expect(EventWrapper).toBeDefined();
   });
 
-  //renders default info
-  test("render event summary", () => {
-    const summary = EventWrapper.find("h3.summary");
-    const summaryString = event.summary;
-    expect(summary).toBeDefined();
-    expect(summary.text()).toBe(summaryString);
+  //renders default info Event title
+  test("render the summary as h1", () => {
+    const summary = EventWrapper.find("h1.summary");
+    expect(summary).toHaveLength(1);
+    expect(summary.text()).toBe(event.summary);
   });
 
+  //default info location
   test("render event location", () => {
     const location = EventWrapper.find("p.location");
     expect(location).toHaveLength(1);
@@ -30,7 +30,7 @@ describe("<Event /> component", () => {
 
   //show details button
   test("renders details button", () => {
-    const detailsButton = EventWrapper.find(".show-details");
+    const detailsButton = EventWrapper.find("button.show-details");
     expect(detailsButton).toHaveLength(1);
     expect(detailsButton.text()).toBe("Show Details");
   });
@@ -40,7 +40,7 @@ describe("<Event /> component", () => {
   });
 
   test("simulate click to show details", () => {
-    const detailsButton = EventWrapper.find(".show-details");
+    const detailsButton = EventWrapper.find("button.show-details");
     detailsButton.simulate("click");
     expect(EventWrapper.state("collapsed")).toBe(false);
   });

@@ -4,9 +4,10 @@ import NumberOfEvents from "../NumberOfEvents";
 
 // *unit tests
 describe("<NumberOfEvents /> component", () => {
-  let NumberOfEventsWrapper;
+  let NumberOfEventsWrapper, eventCount;
   beforeAll(() => {
     NumberOfEventsWrapper = shallow(<NumberOfEvents />);
+    eventCount = NumberOfEventsWrapper.find(".number-of-events");
   });
 
   test("render event text input", () => {
@@ -14,13 +15,12 @@ describe("<NumberOfEvents /> component", () => {
   });
 
   test("check that defualt value is 32", () => {
-    expect(NumberOfEventsWrapper.state("number")).toBe(32);
+    expect(eventCount.prop("type")).toBe("number");
+    expect(NumberOfEventsWrapper.state("eventCount")).toBe(32);
   });
 
   test("change the number of events", () => {
-    NumberOfEventsWrapper.find(".number-of-events").simulate("change", {
-      target: { value: 10 }
-    });
-    expect(NumberOfEventsWrapper.state("number")).toBe(10);
+    eventCount.simulate("change", {target: { value: 10}});
+    expect(NumberOfEventsWrapper.state("eventCount")).toBe(10);
   });
 });
