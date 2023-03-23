@@ -1,8 +1,16 @@
-import React from 'react';
-import { mount } from 'enzyme';
-import App from '../App';
-import { mockData } from '../mock-data';
 import { loadFeature, defineFeature } from "jest-cucumber";
+import React from "react";
+import { ReactDOM } from "react-dom";
+import { mount } from "enzyme";
+import App from "../App";
+import { mockData } from "../mock-data";
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
 
 const feature = loadFeature("./src/features/filterEventsByCity.feature");
 
@@ -17,6 +25,7 @@ defineFeature(feature, (test) => {
     let AppWrapper;
     when("the user opens the app", () => {
       AppWrapper = mount(<App />);
+
     });
 
     then("the user should see the list of upcoming events.", () => {
