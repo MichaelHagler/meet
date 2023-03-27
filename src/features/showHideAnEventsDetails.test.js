@@ -1,6 +1,5 @@
 import { loadFeature, defineFeature } from "jest-cucumber";
-import { mount, shallow } from "enzyme";
-import { mockData } from "../mock-data";
+import { mount } from "enzyme";
 import App from "../App";
 import React from "react";
 
