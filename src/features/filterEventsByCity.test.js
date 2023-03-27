@@ -1,5 +1,4 @@
 import { loadFeature, defineFeature } from "jest-cucumber";
-import { ReactDOM } from "react-dom";
 import { mount, shallow } from "enzyme";
 import { mockData } from "../mock-data";
 import { extractLocations, locations } from "../api";
@@ -7,12 +6,6 @@ import App from "../App";
 import React from "react";
 import CitySearch from "../CitySearch";
 
-/*ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
-);*/
 
 const feature = loadFeature("./src/features/filterEventsByCity.feature");
 
