@@ -8,5 +8,3 @@ atatus.config("4d9aadd413334e73bef14fa057292721").install();
 
 const root = document.getElementById("root");
 render(<App />, root);
-
-atatus.notify(new Error("Test Atatus Setup"));
