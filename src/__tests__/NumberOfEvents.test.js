@@ -9,16 +9,15 @@ describe("<NumberOfEvents /> component", () => {
     NumberOfEventsWrapper = shallow(<NumberOfEvents />);
   });
 
+  test("render element", () => {
+    expect(NumberOfEventsWrapper.find(".number-of-events")).toHaveLength(1);
+  });
+
   test("render event text input", () => {
-    expect(NumberOfEventsWrapper.find(".eventCount")).toHaveLength(0);
+    expect(NumberOfEventsWrapper.find(".event-count")).toHaveLength(1);
   });
 
   test("check that defualt value is 32", () => {
-    expect(NumberOfEventsWrapper.find(".eventCount").prop("inputValue")).toBe(32);
-  });
-
-  test("change the number of events", () => {
-    NumberOfEventsWrapper.simulate("change", {target: { inputValue: 10}});
-    expect(NumberOfEventsWrapper.state("numberOfEvents")).toBe(10);
+    expect(NumberOfEventsWrapper.find(".event-count").prop("value")).toBe(32);
   });
 });

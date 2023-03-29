@@ -34,9 +34,7 @@ class NumberOfEvents extends Component {
             className="event-count"
             min="1"
             value={this.state.numberOfEvents}
-            onChange={(event) => {
-              this.handleInputChange(event);
-            }}
+            onChange={this.handleInputChange}
           />
         </label>
       </div>
