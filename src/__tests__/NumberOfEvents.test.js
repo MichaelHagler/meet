@@ -4,23 +4,21 @@ import NumberOfEvents from "../NumberOfEvents";
 
 // *unit tests
 describe("<NumberOfEvents /> component", () => {
-  let NumberOfEventsWrapper, eventCount;
+  let NumberOfEventsWrapper;
   beforeAll(() => {
     NumberOfEventsWrapper = shallow(<NumberOfEvents />);
-    eventCount = NumberOfEventsWrapper.find(".number-of-events");
   });
 
   test("render event text input", () => {
-    expect(NumberOfEventsWrapper.find(".number-of-events").prop("type")).toBe("number");
+    expect(NumberOfEventsWrapper.find(".eventCount")).toHaveLength(0);
   });
 
   test("check that defualt value is 32", () => {
-    expect(eventCount.prop("type")).toBe("number");
-    expect(NumberOfEventsWrapper.state("eventCount")).toBe(32);
+    expect(NumberOfEventsWrapper.find(".eventCount").prop("inputValue")).toBe(32);
   });
 
   test("change the number of events", () => {
-    eventCount.simulate("change", {target: { value: 10}});
-    expect(NumberOfEventsWrapper.state("eventCount")).toBe(10);
+    NumberOfEventsWrapper.simulate("change", {target: { inputValue: 10}});
+    expect(NumberOfEventsWrapper.state("numberOfEvents")).toBe(10);
   });
 });
