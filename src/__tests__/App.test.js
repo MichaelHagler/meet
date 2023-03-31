@@ -84,23 +84,23 @@ describe("<App /> integration", () => {
   //NumberOfEvents gets EventList as a prop from App so it is defined in its state
   test("App passes 'NumberOfEvents' state as a prop to EventList", () => {
     const AppWrapper = mount(<App />);
-    const AppEventCountState = AppWrapper.state("eventCount");
+    const AppEventCountState = AppWrapper.state("numberOfEvents");
     expect(AppEventCountState).not.toEqual(undefined);
-    expect(AppWrapper.find(NumberOfEvents).state("eventCount").events).toBe(
+    expect(AppWrapper.find(NumberOfEvents).props().numberOfEvents).toEqual(
       AppEventCountState
     );
     AppWrapper.unmount();
   });
 
-  test("Change the 'eventCount' state", async () => {
+  test("Change the 'event-count' state", async () => {
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-    const input = NumberOfEventsWrapper.find("input.number-of-events");
+    const input = NumberOfEventsWrapper.find("input.event-count");
     const eventNumberChange = { target: { value: 10 } };
     input.simulate("change", eventNumberChange);
     await getEvents();
-    expect(AppWrapper.state("eventCount")).toBe(10);
-    expect(NumberOfEventsWrapper.state("eventCount")).toBe(10);
+    expect(AppWrapper.state(".event-count")).toBe(10);
+    expect(NumberOfEventsWrapper.state(".event-count")).toBe(10);
     AppWrapper.unmount();
   });
 });
