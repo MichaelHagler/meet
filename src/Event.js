@@ -5,19 +5,14 @@ class Event extends Component {
   state = { collapsed: true };
 
   toggleDetails = () => {
-    if (!this.state.collapsed) {
-      this.setState({
-        collapsed: false,
-      });
-    } else {
-      this.setState({
-        collasped: true,
-      });
-    }
-  };
+    this.setState(prevState => ({
+      collapsed: !prevState.collapsed
+    }))
+  }
 
   render() {
     const { event } = this.props;
+    const { collapsed } = this.state;
 
     return (
       <div className="event">
@@ -27,19 +22,18 @@ class Event extends Component {
           <p className="timeZone">{event.start.timeZone}</p>
           <p className="location">{event.location}</p>
 
-          {this.state.collapsed && (
+          <button className="showDetails" onClick={this.toggleDetails}>
+            {collapsed ? "Show Details" : "Hide Details"}
+          </button>
+          {!collapsed && (
             <div className="expanded-event-details">
-              <h1>About This Event:</h1>
+              <h3>About This Event:</h3>
               <a className="event-link" href={event.htmlLink}>
                 See Details on Google Calendar
               </a>
               <p className="description">{event.description}</p>
             </div>
           )}
-
-          <button className="showDetails" onClick={this.toggleDetails}>
-            {this.state.collapsed ? "Show Details" : "Hide Details"}
-          </button>
         </div>
       </div>
     );

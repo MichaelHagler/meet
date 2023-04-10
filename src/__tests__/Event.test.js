@@ -30,7 +30,7 @@ describe("<Event /> component", () => {
 
   //show details button
   test("renders details button", () => {
-    const detailsButton = EventWrapper.find("button.show-details");
+    const detailsButton = EventWrapper.find("button.showDetails");
     //expect(detailsButton).toHaveLength(1);
     expect(detailsButton.text()).toBe("Show Details");
   });
@@ -40,7 +40,7 @@ describe("<Event /> component", () => {
   });
 
   test("simulate click to show details", () => {
-    const detailsButton = EventWrapper.find("button.show-details");
+    const detailsButton = EventWrapper.find("button.showDetails");
     detailsButton.simulate("click");
     expect(EventWrapper.state("collapsed")).toBe(false);
   });

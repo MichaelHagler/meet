@@ -19,7 +19,7 @@ defineFeature(feature, (test) => {
     });
 
     then("default number of 32 is loaded", () => {
-      expect(AppWrapper.state("eventCount")).toEqual(32);
+      expect(AppWrapper.state("numberOfEvents")).toEqual(32);
     });
   });
 
@@ -30,7 +30,7 @@ defineFeature(feature, (test) => {
 
     when("user changes the number of events in the input box", () => {
       AppWrapper.update();
-      let NumberOfEventsWrapper = AppWrapper.find("number-of-events");
+      let NumberOfEventsWrapper = AppWrapper.find("numberOfEvents");
       const eventObject = { target: { value: 2 } };
       NumberOfEventsWrapper.find(".event-count").simulate("change", eventObject);
     });
