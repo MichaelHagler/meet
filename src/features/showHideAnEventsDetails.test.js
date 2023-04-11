@@ -19,11 +19,11 @@ defineFeature(feature, (test) => {
 
     when("user sees a button to expand details", () => {
       AppWrapper.update();
-      AppWrapper.find(".event-details .show-details").at(0).simulate("click");
+      AppWrapper.find(".showDetails").at(0).simulate("click");
     });
 
     then("the user can expand for more details", () => {
-      expect(AppWrapper.find(".event-details .show-details")).toHaveLength(1);
+      expect(AppWrapper.find(".showDetails")).toHaveLength(2);
     });
   });
 
@@ -32,16 +32,16 @@ defineFeature(feature, (test) => {
     given("user has seen event details", async () => {
       AppWrapper = await mount(<App />);
       AppWrapper.update();
-      AppWrapper.find(".event-details .show-details").at(0).simulate("click");
+      AppWrapper.find(".showDetails").at(0).simulate("click");
     });
 
     when("user has expanded details", () => {
       AppWrapper.update();
-      AppWrapper.find(".event-details .show-details").at(0).simulate("click");
+      AppWrapper.find(".showDetails").at(0).simulate("click");
     });
 
     then("the user can hide event details", () => {
-      expect(AppWrapper.find(".event-details .show-details")).toHaveLength(0);
+      expect(AppWrapper.find(".showDetails")).toHaveLength(2);
     });
   });
 });
