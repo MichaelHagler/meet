@@ -37,6 +37,7 @@ defineFeature(feature, (test) => {
   }) => {
     let CitySearchWrapper;
     given("the main page is open", () => {
+      let locations = extractLocations(mockData);
       CitySearchWrapper = shallow(
         <CitySearch updateEvents={() => {}} locations={locations} />
       );

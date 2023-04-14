@@ -5,15 +5,19 @@ describe("show/hide an event details", () => {
   let page;
   beforeAll(async () => {
     jest.setTimeout(30000);
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({
+      headless: false,
+      slowMo: 100, // slow down by 250ms
+      ignoreDefaultArgs: ["--disable-extensions"], // ignores default setting that causes timeout errors
+    });
     page = await browser.newPage();
     await page.goto("http://localhost:3000");
-    await page.waitForSelector(".event-details");
+    await page.waitForSelector(".event");
   });
 
   afterAll(() => {
     browser.close();
-  })
+  });
 
   //end-to-end testing scenario 1 show/hide event details
   test("An event element is collapsed by default", async () => {
