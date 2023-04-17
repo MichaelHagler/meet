@@ -5,6 +5,7 @@ import { extractLocations, getEvents } from "./api";
 import EventList from "./EventList";
 import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
+import { WarningAlert } from "./Alert";
 
 class App extends Component {
   state = {
@@ -15,31 +16,44 @@ class App extends Component {
   };
 
   updateEvents = (location, inputValue) => {
-    const {numberOfEvents, seletedLocation} = this.state;
+    const { numberOfEvents, seletedLocation } = this.state;
     if (location) {
-      getEvents().then(events => {
-        const locationEvents = (location === 'all') ?
-        events :
-        events.filter(event => event.location === location);
-        const eventsToShow=locationEvents.slice(0, numberOfEvents);
-        this.setState({
-        events: eventsToShow,
-        seletedLocation: location
-        });
-      });  
-    } else {
       getEvents().then((events) => {
-        const locationEvents = (seletedLocation === 'all') ?
-        events :
-        events.filter((event) => event.location === seletedLocation);
-        const eventsToShow=locationEvents.slice(0, inputValue);
+        const locationEvents =
+          location === "all"
+            ? events
+            : events.filter((event) => event.location === location);
+        const eventsToShow = locationEvents.slice(0, numberOfEvents);
         this.setState({
           events: eventsToShow,
-          numberOfEvents: inputValue
+          seletedLocation: location,
         });
-      })
+      });
+    } else {
+      getEvents().then((events) => {
+        const locationEvents =
+          seletedLocation === "all"
+            ? events
+            : events.filter((event) => event.location === seletedLocation);
+        const eventsToShow = locationEvents.slice(0, inputValue);
+        this.setState({
+          events: eventsToShow,
+          numberOfEvents: inputValue,
+        });
+      });
+
+      //warning to user if they are offline
+      if (!navigator.onLine) {
+        this.setState({
+          warningText: "You are offline, events pull from cache."
+        });
+      } else {
+        this.setState({
+          warningText: ""
+        });
+      }
     }
-  }
+  };
   async componentDidMount() {
     this.mounted = true;
     getEvents().then((events) => {
@@ -57,6 +71,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <WarningAlert text={this.state.warningText} />
+        <h1>Meet App</h1>
         <CitySearch
           locations={this.state.locations}
           updateEvents={this.updateEvents}
