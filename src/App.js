@@ -5,9 +5,9 @@ import { extractLocations, getEvents, checkToken, getAccessToken } from "./api";
 import EventList from "./EventList";
 import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
-import { WarningAlert } from "./Alert";
 import WelcomeScreen from "./WelcomeScreen";
-import { EventGenre } from "./EventGenre";
+import EventGenre from "./EventGenre";
+import { WarningAlert } from "./Alert";
 import {
   ScatterChart,
   Scatter,
