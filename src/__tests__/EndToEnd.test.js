@@ -21,23 +21,23 @@ describe("show/hide an event details", () => {
 
   //end-to-end testing scenario 1 show/hide event details
   test("An event element is collapsed by default", async () => {
-    const eventDetails = await page.$(".event-details .event-details__Details");
+    const eventDetails = await page.$(".event .event__Details");
 
     expect(eventDetails).toBeNull();
   });
 
   //ETE testing scenario 2 when user clicks show details
   test("User can expand an event to see its details", async () => {
-    await page.click(".event-details .show-details");
-    const eventDetails = await page.$(".event-details .event-details__Details");
+    await page.click(".event .showDetails");
+    const eventDetails = await page.$(".event .event__Details");
 
     expect(eventDetails).toBeDefined();
   });
 
   //ETE testing scenario 3 user hides details
   test("User can collapse an event to hide its details", async () => {
-    await page.click(".event-details .show-details");
-    const eventDetails = await page.$(".event-details .event-details__Details");
+    await page.click(".event .showDetails");
+    const eventDetails = await page.$(".event .event__Details");
 
     expect(eventDetails).toBeNull();
   });
