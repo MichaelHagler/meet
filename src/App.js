@@ -1,5 +1,5 @@
 import "./nprogress.css";
-import React, { Component, PureComponent } from "react";
+import React, { Component } from "react";
 import "./App.css";
 import { extractLocations, getEvents, checkToken, getAccessToken } from "./api";
 import EventList from "./EventList";
@@ -16,10 +16,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Sector,
-  Cell,
 } from "recharts";
 
 class App extends Component {
@@ -119,7 +115,7 @@ class App extends Component {
           numberOfEvents={this.state.numberOfEvents}
         />
         <div className="data-vis-wrapper">
-          <EventGenre events={events} />
+          <EventGenre events={this.state.events} />
           <ResponsiveContainer height={400}>
             <ScatterChart
               margin={{
