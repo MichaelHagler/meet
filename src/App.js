@@ -16,7 +16,10 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Cell
 } from "recharts";
+
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 class App extends Component {
   state = {
@@ -134,7 +137,11 @@ class App extends Component {
                 name="number of events"
               />
               <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-              <Scatter data={this.getData()} fill="#8884d8" />
+              <Scatter data={this.getData()} fill="#8884d8">
+                {this.getData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Scatter>
             </ScatterChart>
           </ResponsiveContainer>
         </div>
