@@ -3,13 +3,13 @@ import { ErrorAlert } from "./Alert";
 
 class NumberOfEvents extends Component {
   state = {
-    numberOfEvents: 32,
+    numberOfEvents: this.props.numberOfEvents,
     errorText: "",
     events: []
   };
 
   handleInputChange = (event) => {
-    const inputValue = event.target.value;
+    const inputValue = isNaN(event.target.value) ? this.state.numberOfEvents : Number(event.target.value);
     if (inputValue < 1 || inputValue > 32) {
       this.setState({
         numberOfEvents: inputValue,

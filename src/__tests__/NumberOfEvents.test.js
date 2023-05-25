@@ -6,7 +6,7 @@ import NumberOfEvents from "../NumberOfEvents";
 describe("<NumberOfEvents /> component", () => {
   let NumberOfEventsWrapper;
   beforeAll(() => {
-    NumberOfEventsWrapper = shallow(<NumberOfEvents />);
+    NumberOfEventsWrapper = shallow(<NumberOfEvents numberOfEvents={32} />);
   });
 
   test("render element", () => {
@@ -17,7 +17,7 @@ describe("<NumberOfEvents /> component", () => {
     expect(NumberOfEventsWrapper.find(".event-count")).toHaveLength(1);
   });
 
-  test("check that defualt value is 32", () => {
+  test("check that default value is 32", () => {
     expect(NumberOfEventsWrapper.find(".event-count").prop("value")).toBe(32);
   });
 });
