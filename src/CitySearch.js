@@ -5,7 +5,7 @@ class CitySearch extends Component {
   state = {
     query: "",
     suggestions: [],
-    showSuggestions: undefined,
+    showSuggestions: false,
   };
 
   handleInputChanged = (event) => {
@@ -14,19 +14,13 @@ class CitySearch extends Component {
     const suggestions = this.props.locations.filter((location) => {
       return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
     });
-    if (suggestions.length === 0) {
+
       this.setState({
         query: value,
-        infoText:
-          "We can not find the city you are looking for. Please try another city",
-      });
-    } else {
-      return this.setState({
-        query: value,
         suggestions,
-        infoText: "",
+        showSuggestions: true,
+        infoText: suggestions.length === 0 ? "We can not find the city you are looking for. Please try another city": "",
       });
-    }
   };
 
   handleItemClicked = (suggestion) => {
@@ -51,7 +45,9 @@ class CitySearch extends Component {
             value={this.state.query}
             onChange={this.handleInputChanged}
             onFocus={() => {
-              this.setState({ showSuggestions: true });
+              this.setState({
+                showSuggestions: true
+              })
             }}
           />
         </label>

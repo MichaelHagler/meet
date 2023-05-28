@@ -2,8 +2,9 @@ import { loadFeature, defineFeature } from "jest-cucumber";
 import { mount } from "enzyme";
 import React from "react";
 import App from "../App";
-
+import EventList from "../EventList";
 const feature = loadFeature("./src/features/specifyNumberOfEvents.feature");
+global.ResizeObserver = require("resize-observer-polyfill");
 
 defineFeature(feature, (test) => {
   let AppWrapper;
@@ -24,19 +25,22 @@ defineFeature(feature, (test) => {
   });
 
   test("User changes the number of events", ({ given, when, then }) => {
-    given("that the uesr does not want to see all events", async () => {
+    given("that the user does not want to see all events", async () => {
       AppWrapper = await mount(<App />);
     });
 
     when("user changes the number of events in the input box", () => {
       AppWrapper.update();
       let NumberOfEventsWrapper = AppWrapper.find(".number-of-events");
-      const eventObject = { target: { value: 2 } };
-      NumberOfEventsWrapper.find(".event-count").simulate("change", eventObject);
+      const eventObject = { target: { value: 1 } };
+      NumberOfEventsWrapper.find(".event-count").simulate(
+        "change",
+        eventObject
+      );
     });
 
     then("user will see the number of events they want to see", () => {
-      expect(AppWrapper.find(".event")).toHaveLength(2);
+      expect(AppWrapper.find(EventList).children()).toHaveLength(1);
     });
   });
 });

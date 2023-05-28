@@ -16,46 +16,41 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Cell
+  Cell,
 } from "recharts";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 class App extends Component {
   state = {
+    filtered: [],
     events: [],
     locations: [],
     numberOfEvents: 32,
     selectedLocation: "all",
-    showWelecomeScreen: undefined,
+    showWelcomeScreen: undefined,
   };
 
   updateEvents = (location, inputValue) => {
-    const { numberOfEvents, seletedLocation } = this.state;
-    if (location) {
-      getEvents().then((events) => {
-        const locationEvents =
+    getEvents().then((events) => {
+      const {  selectedLocation } = this.state;
+      const locationEvents =
           location === "all"
-            ? events
-            : events.filter((event) => event.location === location);
-        const eventsToShow = locationEvents.slice(0, numberOfEvents);
-        this.setState({
-          events: eventsToShow,
-          seletedLocation: location,
-        });
+              ? events
+              : events.filter((event) => event.location === location);
+
+      let eventList = [];
+      if (!locationEvents.length) {
+        eventList = events.slice(0, inputValue);
+      } else {
+        eventList = locationEvents.slice(0, inputValue);
+      }
+
+      this.setState({
+        filtered: eventList,
+        selectedLocation: location,
       });
-    } else {
-      getEvents().then((events) => {
-        const locationEvents =
-          seletedLocation === "all"
-            ? events
-            : events.filter((event) => event.location === seletedLocation);
-        const eventsToShow = locationEvents.slice(0, inputValue);
-        this.setState({
-          events: eventsToShow,
-          numberOfEvents: inputValue,
-        });
-      });
+    })
 
       //warning to user if they are offline
       if (!navigator.onLine) {
@@ -67,7 +62,6 @@ class App extends Component {
           warningText: "",
         });
       }
-    }
   };
 
   getData = () => {
@@ -92,7 +86,7 @@ class App extends Component {
     if ((code || isTokenValid) && this.mounted) {
       getEvents().then((events) => {
         if (this.mounted) {
-          this.setState({ events, locations: extractLocations(events) });
+          this.setState({ events, locations: extractLocations(events), numberOfEvents: events.length  });
         }
       });
     }
@@ -103,8 +97,6 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.showWelcomeScreen === undefined)
-      return <div className="App" />;
     return (
       <div className="App">
         <WarningAlert text={this.state.warningText} />
@@ -137,15 +129,18 @@ class App extends Component {
                 name="number of events"
               />
               <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-              <Scatter data={this.getData()} fill="#8884d8">
-                {this.getData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              <Scatter data={this.state.filtered.length > 0 ? this.state.filtered : this.state.events} fill="#8884d8">
+                {this.getData().map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
                 ))}
               </Scatter>
             </ScatterChart>
           </ResponsiveContainer>
         </div>
-        <EventList events={this.state.events} />
+        <EventList events={this.state.filtered.length > 0 ? this.state.filtered : this.state.events} />
         <WelcomeScreen
           showWelcomeScreen={this.state.showWelcomeScreen}
           getAccessToken={() => {

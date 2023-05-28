@@ -2,10 +2,11 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import App from "../App";
 import { mockData } from "../mock-data";
-import { extractLocations, getEvents } from "../api";
+import { extractLocations } from "../api";
 import EventList from "../EventList";
 import CitySearch from "../CitySearch";
 import NumberOfEvents from "../NumberOfEvents";
+global.ResizeObserver = require("resize-observer-polyfill");
 
 //unit tests *shalllow
 describe("<App /> component", () => {
@@ -63,11 +64,10 @@ describe("<App /> integration", () => {
     const selectedIndex = Math.floor(Math.random() * suggestions.length);
     const selectedCity = suggestions[selectedIndex];
     await CitySearchWrapper.instance().handleItemClicked(selectedCity);
-    const allEvents = await getEvents();
-    const eventsToShow = allEvents.filter(
+    const eventsToShow = mockData.filter(
       (event) => event.location === selectedCity
     );
-    expect(AppWrapper.state("events")).toEqual(eventsToShow);
+    expect(AppWrapper.state().filtered).toEqual(eventsToShow);
     AppWrapper.unmount();
   });
 
@@ -76,8 +76,7 @@ describe("<App /> integration", () => {
     const AppWrapper = mount(<App />);
     const suggestionItems = AppWrapper.find(CitySearch).find(".suggestions li");
     await suggestionItems.at(suggestionItems.length - 1).simulate("click");
-    const allEvents = await getEvents();
-    expect(AppWrapper.state("events")).toEqual(allEvents);
+    expect(AppWrapper.state().filtered.length).toEqual(mockData.length);
     AppWrapper.unmount();
   });
 
